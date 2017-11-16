@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using WebApiForTodoApp.Context;
 using WebApiForTodoApp.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace WebApiForTodoApp.Repository
@@ -16,7 +16,7 @@ namespace WebApiForTodoApp.Repository
 			_context = context;
 		}
 
-		public IQueryable<Todo> GetAll()
+		public IEnumerable<Todo> GetAll()
 		{
 			return _context.Todos;
 		}
@@ -26,22 +26,24 @@ namespace WebApiForTodoApp.Repository
 			return _context.Todos.Find(id);
 		}
 
-		public void Create(Todo item)
+		public Todo Create(Todo item)
 		{
-			_context.Todos.Add(item);
+			var newItem = _context.Todos.Add(item);
 			_context.SaveChanges();
+
+			return newItem;
 		}
 
-		public void Remove(Todo item)
+		public int Remove(Todo item)
 		{
 			_context.Todos.Remove(item);
-			_context.SaveChanges();
+			return _context.SaveChanges();
 		}
 
-		public void Edit(Todo item)
+		public int Edit(Todo item)
 		{
 			_context.Entry(item).State = EntityState.Modified;
-			_context.SaveChanges();
+			return _context.SaveChanges();
 		}
 
 		protected virtual void Dispose(bool disposing)

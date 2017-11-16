@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using WebApiForTodoApp.Models;
 using WebApiForTodoApp.Repository;
 
@@ -16,12 +16,12 @@ namespace WebApiForTodoApp.Service
 			_validationDictionary = validationDictionary;
 		}
 
-		public IQueryable<Todo> GetAllTodos()
+		public IEnumerable<Todo> GetList()
 		{
 			return _repository.GetAll();
 		}
 
-		public bool CreateTodo(Todo todo)
+		public bool Create(Todo todo)
 		{
 			if (!ValidateTodo(todo))
 				return false;
@@ -38,13 +38,13 @@ namespace WebApiForTodoApp.Service
 			return true;
 		}
 
-		public bool RemoveTodo(Todo todo)
+		public bool Remove(Todo todo)
 		{
 			try
 			{
 				_repository.Remove(todo);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				_validationDictionary.AddError(ex.Source, ex.Message);
 			}
@@ -52,7 +52,7 @@ namespace WebApiForTodoApp.Service
 			return true;
 		}
 
-		public bool EditTodo(Todo todo)
+		public bool Edit(Todo todo)
 		{
 			if (!ValidateTodo(todo))
 				return false;
@@ -61,7 +61,7 @@ namespace WebApiForTodoApp.Service
 			{
 				_repository.Edit(todo);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				_validationDictionary.AddError(ex.Source, ex.Message);
 			}

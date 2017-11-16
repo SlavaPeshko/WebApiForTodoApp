@@ -1,13 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using WebApiForTodoApp.Models;
 
 namespace WebApiForTodoApp.Service
 {
 	public interface ITodoService
 	{
-		IQueryable<Todo> GetAllTodos();
-		bool CreateTodo(Todo todo);
-		bool RemoveTodo(Todo todo);
-		bool EditTodo(Todo todo);
+		IEnumerable<Todo> GetList();
+		bool Create(Todo todo);
+		bool Remove(Todo todo);
+		bool Edit(Todo todo);
 	}
 }
