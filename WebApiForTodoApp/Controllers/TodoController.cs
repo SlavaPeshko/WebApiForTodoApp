@@ -1,11 +1,12 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 using WebApiForTodoApp.Models;
 using WebApiForTodoApp.Repository;
 using WebApiForTodoApp.Service;
 
 namespace WebApiForTodoApp.Controllers
 {
-	//[EnableCors("*", "*", "*")]
+	[EnableCors("*", "*", "*")]
 	public class TodoController : ApiController
 	{
 		private readonly ITodoRepository _repository;
@@ -27,7 +28,7 @@ namespace WebApiForTodoApp.Controllers
 			if (!_service.Create(todo))
 				return NotFound();
 
-			return Ok();
+			return Ok(todo);
 		}
 
 		public IHttpActionResult Put(int id, Todo todo)

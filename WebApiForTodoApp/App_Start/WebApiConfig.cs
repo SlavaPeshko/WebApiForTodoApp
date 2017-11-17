@@ -54,6 +54,8 @@ namespace WebApiForTodoApp
 
 			config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
 
+			config.EnableCors();
+
 			app.UseWebApi(config);
 		}
 	}
